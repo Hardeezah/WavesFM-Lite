@@ -193,3 +193,4 @@ class WavesFMLiteModel:
         if exitStage == "final":
             return finalExitProbabilities
         return earlyExitProbabilities, finalExitProbabilities
+

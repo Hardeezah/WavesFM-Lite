@@ -90,3 +90,4 @@ class ModelProfiler:
         headFlops = tokenCount * dim + (dim * model.classCount)
         totalFlops = patchFlops + (activeLayers * layerFlops) + headFlops
         return totalFlops / 1e6
+

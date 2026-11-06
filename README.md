@@ -160,3 +160,4 @@ This implementation references and builds upon:
 * Lead Embedded Systems Developer, *CropDiseaseDetector* (1st Place Globally, Huawei ICT Competition Finals, Shenzhen, China).  
 * Research Interests: Embedded AI, Hardware-Software Co-Design, Edge Intelligence for 6G Wireless Networks.  
 * Email: mohammedhardeeza@gmail.com | Zenodo Thesis DOI: [10.5281/zenodo.22287430](https://doi.org/10.5281/zenodo.22287430)
+
