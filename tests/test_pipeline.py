@@ -7,6 +7,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")
 from wavesfm_lite.dataset import WirelessSignalDataset
 from wavesfm_lite.model import WavesFMLiteModel
 from wavesfm_lite.quantizer import Int8Quantizer, ModelProfiler
+from wavesfm_lite.benchmark import BenchmarkRunner
 
 class TestWavesFMLitePipeline(unittest.TestCase):
     def testDatasetGeneration(self):
@@ -60,6 +61,18 @@ class TestWavesFMLitePipeline(unittest.TestCase):
         earlyMemory = ModelProfiler.calculateMemoryFootprintMb(earlyParams, bitPrecision=8)
         finalMemory = ModelProfiler.calculateMemoryFootprintMb(finalParams, bitPrecision=32)
         self.assertLess(earlyMemory, finalMemory)
+
+    def testEndToEndQuantizedBenchmarkConsistency(self):
+        runner = BenchmarkRunner(testSampleCount=10)
+        results = runner.runFullBenchmark()
+
+        self.assertEqual(len(results), 3)
+        self.assertEqual(results[0]["phaseError"], 0.0)
+        self.assertEqual(results[1]["phaseError"], 0.0)
+        self.assertGreater(results[2]["phaseError"], 0.0)
+        self.assertLess(results[2]["phaseError"], 1.0)
+        self.assertEqual(results[2]["agreementPct"], 100.0)
+        self.assertLess(results[1]["latencyMs"], results[0]["latencyMs"])
 
 if __name__ == "__main__":
     unittest.main()
